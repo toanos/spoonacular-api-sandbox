@@ -6,7 +6,7 @@ import android.util.Log
 import android.widget.TextView
 import org.w3c.dom.Text
 import retrofit2.*
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 
 const val BASE_URL = "https://api.spoonacular.com/"
 class MainActivity : AppCompatActivity() {
@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     private fun getSearchIngredients() {
         // step 1: create retrofit builder object
         val retrofitBuilder = Retrofit.Builder()
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(BASE_URL)
             .build()
             .create(SpoonacularAPiInterface::class.java)
