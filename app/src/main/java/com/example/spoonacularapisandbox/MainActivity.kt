@@ -2,7 +2,9 @@ package com.example.spoonacularapisandbox
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
+import org.w3c.dom.Text
 import retrofit2.*
 import retrofit2.converter.moshi.MoshiConverterFactory
 
@@ -39,9 +41,13 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 // TODO send the fetched data to text view
+                val txt = findViewById<TextView>(R.id.txt)
+                txt.text = myStringBuilder
             }
 
-            override fun onFailure(call: Call<List<Ingredient>?>, t: Throwable) {}
+            override fun onFailure(call: Call<List<Ingredient>?>, t: Throwable) {
+                Log.d("MainActivity", "onFailure: $t")
+            }
         })
     }
 }
