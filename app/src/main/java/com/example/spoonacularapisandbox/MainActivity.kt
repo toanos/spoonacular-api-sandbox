@@ -28,15 +28,18 @@ class MainActivity : AppCompatActivity() {
         val retrofitData = retrofitBuilder.getSearchIngredients()
 
         // step 3: perform call backs
-        retrofitData.enqueue(object: Callback<List<Ingredient>?> {
-            override fun onResponse(call: Call<List<Ingredient>?>, response: Response<List<Ingredient>?>) {
+        retrofitData.enqueue(object: Callback<SpoonacularSearchIngredients> {
+            override fun onResponse(call: Call<SpoonacularSearchIngredients>, response: Response<SpoonacularSearchIngredients>) {
                 val responseBody = response.body()!!
                 val myStringBuilder = StringBuilder()
                 // fetch the data
-                for (ingredient in responseBody) {
+                for (ingredient in responseBody.results) {
                     myStringBuilder.append(ingredient.id)
+                    myStringBuilder.append("\n")
                     myStringBuilder.append(ingredient.image)
+                    myStringBuilder.append("\n")
                     myStringBuilder.append(ingredient.name)
+                    myStringBuilder.append("\n")
                     myStringBuilder.append("\n")
                 }
 
@@ -45,7 +48,7 @@ class MainActivity : AppCompatActivity() {
                 txt.text = myStringBuilder
             }
 
-            override fun onFailure(call: Call<List<Ingredient>?>, t: Throwable) {
+            override fun onFailure(call: Call<SpoonacularSearchIngredients>, t: Throwable) {
                 Log.d("MainActivity", "onFailure: $t")
             }
         })
